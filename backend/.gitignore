@@ -1,0 +1,10 @@
+
+
+# 1. Ignore the library folder (very heavy)
+node_modules/
+
+# 2. Ignore the secret file (contains your Compass string)
+.env
+
+# 3. Ignore logs
+npm-debug.log*

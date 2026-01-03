@@ -1,0 +1,31 @@
+.title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.heroImage {
+  /* This creates the 'Image' layer */
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("../assets/heroimage.jpg");
+  background-image:url('../assets/image/wal.jpg.jpeg');
+  background-size: cover;
+  background-position: center;
+
+  /* This creates the height and centers the content */
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.searchWidget input:focus {
+  outline: none;
+}

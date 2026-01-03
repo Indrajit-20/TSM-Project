@@ -1,0 +1,34 @@
+
+.cardWrap {
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.cardWrap:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.cardImg {
+  height: 180px !important;
+  object-fit: cover;
+  width: 100%;
+}
+
+.titleWrap {
+  white-space: normal !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-weight: 700;
+  color: #2c3e50;
+  min-height: 3rem;
+}
+
+.priceText {
+  color: #27ae60 !important;
+  font-weight: bold;
+  font-size: 1.1rem;
+}

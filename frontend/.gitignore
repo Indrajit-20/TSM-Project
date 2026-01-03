@@ -1,0 +1,48 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 1. Dependencies
+# Never upload this; your team will run 'npm install'
+node_modules/
+
+# 2. Production Build
+# This folder is created when you run 'npm run build'
+dist/
+build/
+
+# 3. Environment Variables
+# If you have an .env in frontend for API URLs
+.env
+.env.local
+
+# 4. Debug Logs
+# Files created when the app crashes
+npm-debug.log*
+yarn-debug.log*
+
+# 5. Editor/System Files
+# Junk files from VS Code or Windows
+.vscode/
+.DS_Store
