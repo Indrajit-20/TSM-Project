@@ -34,7 +34,7 @@ const Login = () => {
 
         // 4. Role-Based Redirection
         if (role === "admin") {
-          navigate("/admin-dashboard");
+          navigate("/admin");
         } else {
           navigate("/");
         }

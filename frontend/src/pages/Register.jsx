@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
+  const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
 
   const [formdata, setFormdata] = useState({
@@ -16,6 +17,7 @@ const Register = () => {
 
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
+  
   };
 
   const handleSubmit = async (e) => {
@@ -41,6 +43,9 @@ const Register = () => {
       if (response.status === 201 || response.status === 200) {
         alert("Registration Successful!");
         // You can redirect the user to login page here
+        
+        navigate("/login");
+      
       }
     } catch (err) {
       console.log(
@@ -204,6 +209,7 @@ const Register = () => {
             <button
               type="submit"
               className="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm mb-3"
+
             >
               Register Now
             </button>
