@@ -1,7 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
-
+import { FaBus } from "react-icons/fa";
+import { FaTrainSubway } from "react-icons/fa6";
+import { FaHotel } from "react-icons/fa6";
+import { ImAirplane } from "react-icons/im";
 const Navbar = () => {
   const navigate =useNavigate();
 
@@ -17,7 +20,7 @@ const Navbar = () => {
       <div className="container">
         {/* 1. BRAND LOGO */}
         <Link className="navbar-brand fw-bold text-primary" to="/">
-          TSM
+          <img src="./logo.jpg" alt="Logo" width="160" />
         </Link>
 
         {/* Mobile Toggle */}
@@ -35,25 +38,25 @@ const Navbar = () => {
           <ul className="navbar-nav mx-auto">
             <li className="nav-item px-2">
               <Link className="nav-link text-center" to="/flights">
-                <div className={styles.navIcon}>✈️</div>
+                <div className={styles.navIcon}><ImAirplane /></div>
                 <span className="small d-block">Flights</span>
               </Link>
             </li>
             <li className="nav-item px-2">
               <Link className="nav-link text-center" to="/hotels">
-                <div className={styles.navIcon}>🏨</div>
+                <div className={styles.navIcon}><FaHotel /></div>
                 <span className="small d-block">Hotels</span>
               </Link>
             </li>
             <li className="nav-item px-2">
               <Link className="nav-link text-center" to="/trains">
-                <div className={styles.navIcon}>🚆</div>
+                <div className={styles.navIcon}><FaTrainSubway /></div>
                 <span className="small d-block">Trains</span>
               </Link>
             </li>
             <li className="nav-item px-2">
               <Link className="nav-link text-center" to="/bus">
-                <div className={styles.navIcon}>🚌</div>
+                <div className={styles.navIcon}><FaBus /></div>
                 <span className="small d-block">Bus</span>
               </Link>
             </li>

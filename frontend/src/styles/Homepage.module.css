@@ -14,16 +14,29 @@
 .heroImage {
   /* This creates the 'Image' layer */
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url("../assets/heroimage.jpg");
-  background-image:url('../assets/image/wal.jpg.jpeg');
-  background-size: cover;
+    url("../assets/image/hero11.png");
+  
+ background-size: cover;
   background-position: center;
-
-  /* This creates the height and centers the content */
   height: 80vh;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 100%;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* This creates a "glow" that separates text from image */
+}
+
+.heroTitle1 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* This creates a "glow" that separates text from image */
 }
 
 .searchWidget input:focus {

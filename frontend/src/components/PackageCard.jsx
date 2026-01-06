@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '../styles/PackageCard.module.css';
 
-const PackageCard = ({ PackageName, price, location, image_url }) => {
+const PackageCard = ({ PackageName, price, location, image_url,duration }) => {
   return (
     <>
       <div className={`card ${styles.cardWrap,styles.display}`} style={{ width: "18rem" }}>
@@ -15,7 +15,7 @@ const PackageCard = ({ PackageName, price, location, image_url }) => {
           {/* Apply titleWrap to handle long names like "Dubai Luxury Tour" */}
           <h5 className={`card-title ${styles.titleWrap}`}>{PackageName}</h5>
           <p className="card-text text-muted small">
-            Discover the wonders of {location} with our exclusive travel package.
+            Discover the wonders of {PackageName} with our exclusive travel package.
           </p>
         </div>
 
@@ -24,7 +24,7 @@ const PackageCard = ({ PackageName, price, location, image_url }) => {
             <span className="text-muted small">Location:</span> {location}
           </li>
            <li className="list-group-item">
-            <span className="text-muted small">Location:</span> {location}
+            <span className="text-muted small">Duration:</span> {duration}
           </li>
           <li className="list-group-item">
             <span className="text-muted small">Price:</span> 

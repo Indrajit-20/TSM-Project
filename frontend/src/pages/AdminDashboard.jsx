@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, Outlet } from "react-router-dom"; // 👈 Add Outlet
+import { useNavigate, Outlet } from "react-router-dom"; 
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -13,10 +13,10 @@ const AdminDashboard = () => {
           <h4 className="text-center fw-bold mb-5 border-bottom pb-3">TSM ADMIN</h4>
           <ul className="nav flex-column gap-3">
             <li className="nav-item">
-              <button className="btn btn-light w-100 text-start" onClick={() => navigate("/admin")}>📊 Dashboard</button>
+              <button className="btn btn-light w-100 text-start" onClick={() => navigate("/admin")}> Dashboard</button>
             </li>
             <li className="nav-item">
-              <button className="btn text-white w-100 text-start" onClick={() => navigate("/admin/manage-packages")}>📦 Manage Packages</button>
+              <button className="btn text-white w-100 text-start" onClick={() => navigate("/admin/manage-packages")}>Manage Packages</button>
             </li>
             {/* ... other buttons ... */}
           </ul>

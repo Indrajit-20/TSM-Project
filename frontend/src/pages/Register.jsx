@@ -64,7 +64,7 @@ const Register = () => {
         style={{ width: "32rem" }}
       >
         <div className="card-body p-5">
-          <h3 className="text-center fw-bold mb-4 text-primary">Join TSM</h3>
+          <h3 className="text-center fw-bold mb-4 text-primary">Register Now </h3>
           <form onSubmit={handleSubmit}>
             {/* Name */}
             <div className="mb-3">
