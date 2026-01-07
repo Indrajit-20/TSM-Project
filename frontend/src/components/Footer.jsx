@@ -2,7 +2,6 @@ import styles from "../styles/Footer.module.css";
 const Footer = () => {
   return (
     <>
-      <h1>hello</h1>
       <footer className={`bg-dark text-white py-5 mt-5 ${styles.footer} `}>
         <div className="container">
           <div className="row ">
