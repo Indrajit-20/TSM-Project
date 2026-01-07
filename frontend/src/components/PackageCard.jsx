@@ -28,7 +28,7 @@ const PackageCard = ({
   return (
     <>
       <div
-        className={`card ${styles.cardWrap} ${styles.display}`}
+        className={`card ${styles.cardWrap} ${styles.display} d-flex flex-column h-100`}
         style={{ width: "18rem" }}
       >
         <img
@@ -37,13 +37,13 @@ const PackageCard = ({
           alt={PackageName}
         />
 
-        <div className="card-body">
+        <div className="card-body d-flex flex-column">
           {/* Apply titleWrap to handle long names like "Dubai Luxury Tour" */}
           <h5 className={`card-title ${styles.titleWrap}`}>{PackageName}</h5>
-          <p className="card-text text-muted small">{snippet}</p>
+          <p className="card-text text-muted small mb-0">{snippet}</p>
         </div>
 
-        <ul className="list-group list-group-flush">
+        <ul className="list-group list-group-flush flex-grow-1">
           <li className="list-group-item">
             <span className="text-muted small">Location:</span> {location}
           </li>
@@ -56,14 +56,20 @@ const PackageCard = ({
           </li>
         </ul>
 
-        <div className="card-body d-flex justify-content-between">
+        <div className="card-body mt-auto p-3 card-actions">
           <Link
             to={`/packages/${id}`}
-            className="btn btn-outline-primary btn-sm"
+            className="btn btn-outline-primary btn-sm text-nowrap"
           >
             Details
           </Link>
-          <button className="btn btn-primary btn-sm">Book Now</button>
+
+          <Link
+            to={`/packages/${id}`}
+            className="btn btn-primary btn-sm text-nowrap"
+          >
+            Book Now
+          </Link>
         </div>
       </div>
     </>

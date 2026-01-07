@@ -5,6 +5,10 @@
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* let parent (grid) control final height */
+  min-height: 480px; /* reduced min to avoid excessive empty space */
 }
 
 .cardWrap:hover {
@@ -12,6 +16,57 @@
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* Truncate long description to keep cards balanced */
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* show max 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Make action buttons consistent using a dedicated wrapper */
+.card-actions {
+  display: flex;
+  gap: 20px; /* more space between buttons */
+  padding: 0 8px; /* small horizontal padding for breathing room */
+  align-items: center;
+}
+.card-actions .btn {
+  /* fixed half-width minus half gap so both buttons are equal */
+  flex: 0 0 calc(50% - 10px);
+  min-width: 0; /* prevents content from forcing button wider */
+  box-sizing: border-box;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.375rem 0.75rem;
+  margin: 0; /* reset any external margins */
+}
+
+/* Ensure outline and filled buttons look visually consistent */
+.card-actions .btn-outline-primary {
+  border-width: 1px;
+}
+
+@media (max-width: 576px) {
+  .card-actions {
+    flex-direction: column;
+  }
+  .card-actions .btn {
+    width: 100%;
+    height: auto;
+  }
+}
+/* Make cards auto-height on very small screens */
+@media (max-width: 576px) {
+  .cardWrap {
+    min-height: auto;
+  }
+  .card-body .btn.flex-fill {
+    height: auto;
+  }
+}
 .cardImg {
   height: 180px !important;
   object-fit: cover;

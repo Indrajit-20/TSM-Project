@@ -25,8 +25,8 @@ const Login = () => {
       if (response.status === 200) {
         const { role, token, message } = response.data;
 
-        // store token for authenticated requests
-        if (token) localStorage.setItem("token", `Bearer ${token}`);
+        // store token for authenticated requests (store raw token; prefix with Bearer when sending)
+        if (token) localStorage.setItem("token", token);
         if (response.data?.userId)
           localStorage.setItem("userId", response.data.userId);
 

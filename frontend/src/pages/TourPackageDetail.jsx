@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const PackageDetail = () => {
+const TourPackageDetail = () => {
   const { id } = useParams();
   const [pkg, setPkg] = useState(null);
   const [travelers, setTravelers] = useState(1);
   const [startDate, setStartDate] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -17,11 +19,25 @@ const PackageDetail = () => {
       );
   }, [id]);
 
+  const getImageSrc = (img) => {
+    if (!img) return "/default-tour.jpg";
+    const t = String(img).trim();
+    if (/^https?:\/\//i.test(t)) return t;
+    return t.startsWith("/")
+      ? `http://localhost:5000${t}`
+      : `http://localhost:5000/${t}`;
+  };
+
   const bookPackage = async () => {
     const token = localStorage.getItem("token");
-    if (!token) return alert("Please login to book a package.");
+    if (!token) {
+      alert("Please login to book a package.");
+      return navigate("/login");
+    }
 
     try {
+      setLoading(true);
+
       const payload = {
         userId: localStorage.getItem("userId") || null,
         packageId: id,
@@ -29,20 +45,32 @@ const PackageDetail = () => {
         startDate,
       };
 
-      const headers = { Authorization: token };
+      const headers = { Authorization: `Bearer ${token}` };
 
       const res = await axios.post(
         "http://localhost:5000/api/tour-bookings/book",
         payload,
         { headers }
       );
+
       alert(res.data?.message || "Booking created! Admin will approve.");
     } catch (err) {
       console.error("Booking error:", err.response?.data || err.message);
+
+      if (err.response?.status === 401) {
+        // Token invalid/expired — clear local auth and redirect to login
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        alert("Session expired or invalid. Please login again.");
+        return navigate("/login");
+      }
+
       alert(
         err.response?.data?.message ||
           "Booking failed. Make sure you're logged in."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,13 +81,7 @@ const PackageDetail = () => {
       <div className="row">
         <div className="col-md-8">
           <img
-            src={(function (img) {
-              if (!img) return "/default-tour.jpg";
-              const t = img.toString().trim();
-              if (/^https?:\/\//i.test(t)) return t;
-              if (t.startsWith("/")) return `http://localhost:5000${t}`;
-              return `http://localhost:5000/${t}`;
-            })(pkg.image_url)}
+            src={getImageSrc(pkg.image_url)}
             className="img-fluid rounded mb-4"
             alt={pkg.name}
             style={{ height: "400px", objectFit: "cover" }}
@@ -82,12 +104,6 @@ const PackageDetail = () => {
               >
                 {pkg.package_type}
               </span>
-            </div>
-            <div className="col-md-6">
-              {/* No start/end dates in model — show createdAt instead */}
-              <p>
-                <strong>Added:</strong> {new Date(pkg.createdAt).toDateString()}
-              </p>
             </div>
           </div>
 
@@ -144,12 +160,6 @@ const PackageDetail = () => {
                   <strong>Duration:</strong> {pkg.duration}
                 </li>
               </ul>
-              <button className="btn btn-success w-100 mb-2">
-                WhatsApp Inquiry
-              </button>
-              <button className="btn btn-outline-primary w-100">
-                Call Now
-              </button>
             </div>
           </div>
         </div>
@@ -158,4 +168,4 @@ const PackageDetail = () => {
   );
 };
 
-export default PackageDetail;
+export default TourPackageDetail;

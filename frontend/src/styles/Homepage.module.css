@@ -4,11 +4,12 @@
 }
 
 .cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px;
+  display: grid;
+  /* Use fixed column width (18rem) and wrap to next row. Align to start to avoid large empty gaps on the right */
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 18rem));
+  gap: 12px;
+  justify-content: start;
+  padding: 12px;
 }
 
 .heroImage {
@@ -41,4 +42,13 @@
 
 .searchWidget input:focus {
   outline: none;
+}
+
+/* Ensure spacing between package card action buttons when defined elsewhere */
+:global(.card-actions) {
+  gap: 20px;
+}
+
+:global(.card-actions .btn + .btn) {
+  margin-left: 90px;
 }
