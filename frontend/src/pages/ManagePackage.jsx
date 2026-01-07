@@ -32,6 +32,15 @@ const ManagePackage = () => {
     }
   };
 
+  // Small helper to normalize image URLs for display in the table
+  const getImageSrc = (image_url) => {
+    if (!image_url) return "/default-tour.jpg";
+    const t = image_url.toString().trim();
+    if (/^https?:\/\//i.test(t)) return t;
+    if (t.startsWith("/")) return `http://localhost:5000${t}`;
+    return `http://localhost:5000/${t}`;
+  };
+
   useEffect(() => {
     getTours();
   }, []);
@@ -214,6 +223,20 @@ const ManagePackage = () => {
                     required
                   />
                 </div>
+                <div className="col-12">
+                  <label className="form-label small fw-bold">
+                    Description
+                  </label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={fomdata.description}
+                    className="form-control"
+                    placeholder="Brief details about the package"
+                    onChange={handleOnChange}
+                    required
+                  />
+                </div>
                 <div className="col-12 text-end">
                   <button
                     type="submit"
@@ -227,7 +250,59 @@ const ManagePackage = () => {
           </div>
         </div>
 
-        {/* Table remains the same... */}
+        {/* Packages Table */}
+        <div className="card shadow-sm border-0 rounded-4">
+          <div className="card-body p-4">
+            <h5 className="mb-3">Existing Packages</h5>
+            <div className="table-responsive">
+              <table className="table table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Destination</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {packages.map((p) => (
+                    <tr key={p._id}>
+                      <td style={{ width: 80 }}>
+                        <img
+                          src={getImageSrc(p.image_url)}
+                          alt={p.name}
+                          style={{ width: 72, height: 48, objectFit: "cover" }}
+                        />
+                      </td>
+                      <td>{p.name}</td>
+                      <td>{p.destination}</td>
+                      <td>{p.package_type}</td>
+                      <td>₹{p.price}</td>
+                      <td style={{ maxWidth: 240 }}>
+                        {p.description
+                          ? p.description.length > 120
+                            ? p.description.slice(0, 120) + "..."
+                            : p.description
+                          : "-"}
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => deleteTour(p._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

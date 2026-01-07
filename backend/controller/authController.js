@@ -85,6 +85,7 @@ const login = async (req, res) => {
       message: `welcome ${user.role}`,
       token: token, // Sending the key to the frontend
       role: user.role,
+      userId: user._id
     });
   } catch (err) {
     console.error(err);

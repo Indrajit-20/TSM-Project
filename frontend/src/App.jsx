@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminStats from "./components/AdminState";
+import PackageDetail from "./pages/TourPackageDetail"; // detail page
 // ManagePackages component lives in pages/ManagePackage.jsx (singular).
 import ManagePackages from "./pages/ManagePackage";
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Hompage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/packages/:id" element={<PackageDetail />} />
         <Route path="/admin" element={<AdminDashboard />}>
           <Route index element={<AdminStats />} /> {/* Opens by default */}
           <Route path="manage-packages" element={<ManagePackages />} />

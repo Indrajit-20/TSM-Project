@@ -96,11 +96,13 @@ const Hompage = () => {
                 {DomesticPackages.map((pkg) => (
                   <PackageCard
                     key={pkg._id}
+                    id={pkg._id}
                     PackageName={pkg.name}
                     price={pkg.price}
                     duration={pkg.duration}
                     location={pkg.destination}
                     image_url={pkg.image_url}
+                    description={pkg.description}
                   />
                 ))}
               </div>
@@ -122,11 +124,13 @@ const Hompage = () => {
                 {InternationalPackages.map((pkg) => (
                   <PackageCard
                     key={pkg._id}
+                    id={pkg._id}
                     PackageName={pkg.name}
                     price={pkg.price}
                     duration={pkg.duration}
                     location={pkg.destination}
                     image_url={pkg.image_url}
+                    description={pkg.description}
                   />
                 ))}
               </div>

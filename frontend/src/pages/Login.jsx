@@ -27,6 +27,8 @@ const Login = () => {
 
         // store token for authenticated requests
         if (token) localStorage.setItem("token", `Bearer ${token}`);
+        if (response.data?.userId)
+          localStorage.setItem("userId", response.data.userId);
 
         alert(message || "Login Successful");
 
