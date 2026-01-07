@@ -1,5 +1,5 @@
 const express = require("express");
-
+const tourBookingRoutes = require("./routes/tourBookingRoutes");
 const connectDB = require("./config/db.js"); // Import the function
 const packageRoutes = require("./routes/packageRoutes.js");
 const authRouts = require("./routes/authRoutes.js");
@@ -31,7 +31,10 @@ app.get("/", (req, res) => {
 app.use("/api/packages", packageRoutes);
 
 app.use("/api/auth", authRouts); //register and login  routes
+// Tour Booking Routes
+app.use("/api/tour-bookings", tourBookingRoutes);
 
 app.listen(PORT, () =>
   console.log(`Server running on port http://localhost:${PORT}`)
 );
+  
