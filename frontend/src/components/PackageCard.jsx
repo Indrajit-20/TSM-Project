@@ -2,12 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/PackageCard.module.css";
 
-const getImageSrc = (image_url) => {
-  if (!image_url) return "/default-tour.jpg";
-  const trimmed = image_url.toString().trim();
+const getImageSrc = (image_url = "") => {
+  const trimmed = String(image_url).trim();
+  if (!trimmed) return "/default-tour.jpg";
   if (/^https?:\/\//i.test(trimmed)) return trimmed; // absolute URL
-  if (trimmed.startsWith("/")) return `http://localhost:5000${trimmed}`;
-  return `http://localhost:5000/${trimmed}`; // missing leading slash
+  const normalized = trimmed.replace(/\\+/g, "/").replace(/^\/+/, "");
+  const path = normalized.startsWith("images/")
+    ? normalized
+    : `images/${normalized}`;
+  return `http://localhost:5000/${path}`; // ensure URL matches backend static route
 };
 
 const PackageCard = ({
