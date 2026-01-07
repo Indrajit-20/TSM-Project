@@ -5,11 +5,12 @@ const ManagePackage = () => {
   const [fomdata, setFormdata] = useState({
     name: "",
     destination: "",
-    type: "domestic",
+    package_type: "Domestic",
     image_url: "",
-    location: "", 
+    location: "",
     duration: "",
     price: "",
+    description: "",
   });
 
   const [packages, setpackages] = useState([]);
@@ -17,7 +18,15 @@ const ManagePackage = () => {
   const getTours = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/packages");
-      setpackages(res.data);
+      // Some environments/tools may wrap the array; normalize to an array
+      const raw = res.data;
+      const list = Array.isArray(raw) ? raw : raw?.value || raw?.data || [];
+      // Trim stray whitespace in image paths (some records had trailing \n)
+      const cleaned = list.map((p) => ({
+        ...p,
+        image_url: p.image_url ? p.image_url.toString().trim() : p.image_url,
+      }));
+      setpackages(cleaned);
     } catch (err) {
       console.log("Error: Check if backend is running on 5000", err);
     }
@@ -27,42 +36,61 @@ const ManagePackage = () => {
     getTours();
   }, []);
 
-  // FIXED: Corrected the state name typo here
   const handleOnChange = (e) => {
-    setFormdata({ ...fomdata, [e.target.name]: e.target.value }); 
+    setFormdata({ ...fomdata, [e.target.name]: e.target.value });
   };
 
   const packageAdd = async (e) => {
     e.preventDefault();
-    
-    // VALIDATION: Check if essential fields are filled
-    if (!fomdata.name || !fomdata.price) {
-      alert("Please fill in the Package Name and Price.");
+
+    if (
+      !fomdata.name ||
+      !fomdata.price ||
+      !fomdata.destination ||
+      !fomdata.image_url
+    ) {
+      alert("Please fill in Package Name, Price, Destination and Image URL.");
       return;
     }
 
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token"); // may contain raw token or 'Bearer <token>' depending on login
 
-      await axios.post("http://localhost:5000/api/packages", fomdata, {
+      // Ensure payload uses backend-expected field names
+      const payload = {
+        name: fomdata.name,
+        destination: fomdata.destination,
+        price: fomdata.price,
+        duration: fomdata.duration,
+        location: fomdata.location,
+        image_url: fomdata.image_url,
+        package_type: fomdata.package_type,
+        description: fomdata.description,
+      };
+
+      await axios.post("http://localhost:5000/api/packages/add", payload, {
         headers: {
-          Authorization: token, // Note: If your backend uses Bearer, use: `Bearer ${token}`
+          Authorization: token,
         },
       });
 
       alert("Package Added Successfully");
+
+      // Reset Form (use the same shape and default values as initial state)
       setFormdata({
         name: "",
-        destination: "",      
-        type: "domestic",
+        destination: "",
+        package_type: "Domestic",
         image_url: "",
         location: "",
         duration: "",
         price: "",
+        description: "",
       });
-      getTours(); 
+
+      getTours(); // Correctly refresh the list [cite: 2025-12-12]
     } catch (err) {
-      alert("You are not authorized to add package. Please login as Admin.");
+      alert("You are not authorized or Route not found.");
       console.error(err);
     }
   };
@@ -92,11 +120,15 @@ const ManagePackage = () => {
 
         <div className="card shadow-sm border-0 rounded-4 mb-5">
           <div className="card-body p-4">
-            <h5 className="card-title mb-4 fw-bold text-secondary">Add New Tour</h5>
+            <h5 className="card-title mb-4 fw-bold text-secondary">
+              Add New Tour
+            </h5>
             <form onSubmit={packageAdd}>
               <div className="row g-3">
                 <div className="col-md-6">
-                  <label className="form-label small fw-bold">Package Name</label>
+                  <label className="form-label small fw-bold">
+                    Package Name
+                  </label>
                   <input
                     type="text"
                     name="name" // ADDED NAME
@@ -109,26 +141,42 @@ const ManagePackage = () => {
                 </div>
                 <div className="col-md-6">
                   <label className="form-label small fw-bold">Type</label>
-                  <select 
-                    name="type" // ADDED NAME
-                    className="form-select" 
-                    value={fomdata.type} 
+                  <select
+                    name="package_type"
+                    className="form-select"
+                    value={fomdata.package_type}
                     onChange={handleOnChange}
                   >
-                    <option value="domestic">Domestic</option>
-                    <option value="international">International</option>
+                    <option value="Domestic">Domestic</option>
+                    <option value="International">International</option>
                   </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label small fw-bold">
+                    Destination
+                  </label>
+                  <input
+                    type="text"
+                    name="destination"
+                    value={fomdata.destination}
+                    className="form-control"
+                    placeholder="e.g. Goa, India"
+                    onChange={handleOnChange}
+                    required
+                  />
                 </div>
 
                 <div className="col-md-12">
                   <label className="form-label small fw-bold">Image URL</label>
                   <input
                     type="text"
-                    name="image_url" // ADDED NAME
+                    name="image_url"
                     value={fomdata.image_url}
                     className="form-control"
-                    placeholder="https://example.com/image.jpg"
+                    placeholder="/images/example.jpg or https://..."
                     onChange={handleOnChange}
+                    required
                   />
                 </div>
 
@@ -167,7 +215,10 @@ const ManagePackage = () => {
                   />
                 </div>
                 <div className="col-12 text-end">
-                  <button type="submit" className="btn btn-primary px-5 rounded-pill fw-bold">
+                  <button
+                    type="submit"
+                    className="btn btn-primary px-5 rounded-pill fw-bold"
+                  >
                     + Add Package
                   </button>
                 </div>

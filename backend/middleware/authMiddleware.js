@@ -1,32 +1,37 @@
 const jwt = require("jsonwebtoken");
 
-//Authentication Middleware
+// Authentication Middleware
 const authMiddleware = (req, res, next) => {
-  const token = req.header("Authorization");
+  // Read header (frontend may send 'Bearer <token>' or the raw token)
+  const authHeader = req.header("Authorization") || req.header("authorization");
 
-  if (!token) {
+  if (!authHeader) {
     return res.status(401).json({ message: "Login required! No token found." });
   }
+
+  // Support both 'Bearer <token>' and raw token formats
+  const token =
+    typeof authHeader === "string" && authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : authHeader;
+
   try {
-    const verified = jwt.verify(token, "tsm"); // seceret key tsm we crate in authController.js
+    const verified = jwt.verify(token, "tsm"); // consider moving secret to env var
     req.user = verified;
-    next();
+    return next();
   } catch (err) {
-    res.status(400).json({ message: "inavlid token or expired " });
+    console.error("Auth middleware error:", err.message);
+    return res.status(401).json({ message: "Invalid or expired token." });
   }
 };
 
-//isadmin middleware
-
-const isadmin = (req,res,next)=>{
-  if(req.user && req.user.role === "admin"){
-    next();
-  }else
-  {
-
-    res.status(403).json({ message: "Admin access required" });
+// isadmin middleware
+const isadmin = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
+    return next();
   }
-  
+
+  return res.status(403).json({ message: "Admin access required" });
 };
 
 module.exports = { authMiddleware, isadmin };

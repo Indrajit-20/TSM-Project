@@ -26,11 +26,9 @@ const Login = () => {
         const { role, token, message } = response.data;
 
         // store token for authenticated requests
-        if (token) localStorage.setItem("token", token);
+        if (token) localStorage.setItem("token", `Bearer ${token}`);
 
         alert(message || "Login Successful");
-
-       
 
         // 4. Role-Based Redirection
         if (role === "admin") {
@@ -100,11 +98,9 @@ const Login = () => {
                 className="small fw-bold text-decoration-none"
               >
                 Register now
-              </Link><br/>
-                <Link
-                to="/"
-                className="small fw-bold text-decoration-none"
-              >
+              </Link>
+              <br />
+              <Link to="/" className="small fw-bold text-decoration-none">
                 Go Homepage
               </Link>
             </div>
