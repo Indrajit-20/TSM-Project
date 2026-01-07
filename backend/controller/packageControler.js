@@ -1,4 +1,6 @@
+const TourBooking = require("../model/TourBooking");
 const TourPackage = require("../model/TourPackage");
+const User = require("../model/Custmer");
 
 //get all packages
 const getPackages = async (req, res) => {
@@ -83,7 +85,28 @@ const deletePackage = async (req, res) => {
   }
 };
 
+
+const getAdminStats = async (req, res) => {
+  try {
+    // Promise.all runs all counts at the same time for speed
+    const [userCount, packageCount, bookingCount] = await Promise.all([
+      User.countDocuments(),
+      TourPackage.countDocuments(),
+      TourBooking.countDocuments(),
+    ]);
+
+    res.status(200).json({
+      users: userCount,
+      packages: packageCount,
+      bookings: bookingCount,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching stats", error: err.message });
+  }
+};
+
 module.exports = {
+  getAdminStats,
   getPackages,
   addPackage,
   deletePackage,
