@@ -1,6 +1,5 @@
 const TourPackage = require("../model/TourPackage");
 
-
 //get all packages
 const getPackages = async (req, res) => {
   try {
@@ -15,13 +14,12 @@ const getPackages = async (req, res) => {
 const packageById = async (req, res) => {
   try {
     const pkg = await TourPackage.findById(req.params.id);
-    if(!pkg){
-       res.status(200).json({ message: "Package not found" });
+    if (!pkg) {
+      res.status(200).json({ message: "Package not found" });
     }
-    res.status(200).json(pkg);  
+    res.status(200).json(pkg);
   } catch (err) {
     res.status(500).json({ message: "error", error: err.message });
-
   }
 };
 
@@ -34,7 +32,7 @@ const addPackage = async (req, res) => {
       destination,
       price,
       duration,
-      location, 
+      location,
       image_url,
       package_type,
       description,
@@ -65,6 +63,10 @@ const updatePackage = async (req, res) => {
     const updatePackage = await TourPackage.findByIdAndUpdate(id, req.body, {
       new: true,
     });
+    if (!updatePackage) {
+      return res.status(404).json({ message: "Package not found" });
+    }
+
     res.status(200).json(updatePackage);
   } catch (err) {
     res.status(500).json({ message: "Update Failed" }, err.message);
@@ -81,4 +83,10 @@ const deletePackage = async (req, res) => {
   }
 };
 
-module.exports = { getPackages, addPackage ,deletePackage,updatePackage, packageById};
+module.exports = {
+  getPackages,
+  addPackage,
+  deletePackage,
+  updatePackage,
+  packageById,
+};
