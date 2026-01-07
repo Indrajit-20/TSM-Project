@@ -24,13 +24,17 @@ const TourPackageDetail = () => {
     fetchPackage();
   }, [id]);
 
-  const getImageSrc = (img) => {
-    if (!img) return "/default-tour.jpg";
+  const getImageSrc = (img = "") => {
     const t = String(img).trim();
+    if (!t) return "/default-tour.jpg";
     if (/^https?:\/\//i.test(t)) return t;
-    return t.startsWith("/")
-      ? `http://localhost:5000${t}`
-      : `http://localhost:5000/${t}`;
+
+    // normalize and ensure it points to backend /images
+    const normalized = t.replace(/\\+/g, "/").replace(/^\/+/, "");
+    const path = normalized.startsWith("images/")
+      ? normalized
+      : `images/${normalized}`;
+    return `http://localhost:5000/${path}`;
   };
 
   const bookPackage = async () => {
