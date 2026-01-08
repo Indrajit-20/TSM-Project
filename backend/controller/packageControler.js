@@ -88,7 +88,7 @@ const deletePackage = async (req, res) => {
 
 const getAdminStats = async (req, res) => {
   try {
-    // Promise.all runs all counts at the same time for speed
+    
     const [userCount, packageCount, bookingCount] = await Promise.all([
       User.countDocuments(),
       TourPackage.countDocuments(),

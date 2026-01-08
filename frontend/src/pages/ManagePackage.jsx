@@ -14,9 +14,9 @@ const ManagePackage = () => {
   });
 
   const [packages, setpackages] = useState([]);
-  const [editId, setEditId] = useState(null); // 🔹 UPDATE MODE
+  const [editId, setEditId] = useState(null); 
 
-  // ================= FETCH PACKAGES =================
+  //FETCH PACKAGES 
   const getTours = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/packages");
@@ -30,7 +30,7 @@ const ManagePackage = () => {
     getTours();
   }, []);
 
-  // ================= IMAGE HELPER =================
+  
   const getImageSrc = (img) => {
     if (!img) return "/default-tour.jpg";
     return img.startsWith("http")
@@ -38,12 +38,12 @@ const ManagePackage = () => {
       : `http://localhost:5000/${img}`;
   };
 
-  // ================= FORM CHANGE =================
+  
   const handleOnChange = (e) => {
     setFormdata({ ...fomdata, [e.target.name]: e.target.value });
   };
 
-  // ================= ADD PACKAGE =================
+  // ADD PACKAGE
   const packageAdd = async (e) => {
     e.preventDefault();
 
@@ -67,7 +67,7 @@ const ManagePackage = () => {
     }
   };
 
-  // ================= EDIT (FILL FORM) =================
+  
   const handleEdit = (pkg) => {
     setEditId(pkg._id);
     setFormdata({
@@ -84,7 +84,7 @@ const ManagePackage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ================= UPDATE PACKAGE =================
+  // UPDATE PACKAGE
   const updatePackage = async (e) => {
     e.preventDefault();
 
@@ -109,7 +109,7 @@ const ManagePackage = () => {
     }
   };
 
-  // ================= DELETE PACKAGE =================
+  // DELETE PACKAGE
   const deleteTour = async (id) => {
     if (!window.confirm("Are you sure?")) return;
 
@@ -131,7 +131,7 @@ const ManagePackage = () => {
     }
   };
 
-  // ================= RESET FORM =================
+  
   const resetForm = () => {
     setFormdata({
       name: "",
@@ -152,7 +152,7 @@ const ManagePackage = () => {
            Package Management
         </h2>
 
-        {/* ================= FORM ================= */}
+        {/* FORM  */}
         <div className="card shadow-sm mb-5">
           <div className="card-body">
             <h5 className="fw-bold">
@@ -278,7 +278,7 @@ const ManagePackage = () => {
           </div>
         </div>
 
-        {/* ================= TABLE ================= */}
+        {/* TABLE*/}
         <div className="card shadow-sm">
           <div className="card-body">
             <table className="table table-hover">

@@ -13,7 +13,7 @@ const AdminDashboard = () => {
   return (
     <div className="container-fluid g-0">
       <div className="row g-0">
-        {/* SIDEBAR - Added sticky-top and vh-100 */}
+        {/* SIDEBAR  */}
         <div
           className="col-md-2 p-3 text-white shadow d-flex flex-column sticky-top"
           style={{
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* MAIN CONTENT AREA - Scrollable */}
+        {/* MAIN CONTENT  */}
         <div className="col-md-10 p-5 bg-white">
           <Outlet />
         </div>

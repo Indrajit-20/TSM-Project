@@ -13,11 +13,11 @@ const register = async (req, res) => {
     if (existingUser)
       return res.status(400).json({ message: "User already exists" });
 
-    // Hash the password
+    
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create the new Customer or Admin
+    
     const newUser = new User({
       name,
       email,
@@ -25,7 +25,7 @@ const register = async (req, res) => {
       password: hashedPassword,
       gender,
       address,
-      role: role || "customer", // Defaults to customer unless specified
+      role: role || "customer", 
     });
 
     await newUser.save();
@@ -35,11 +35,11 @@ const register = async (req, res) => {
       user: newUser,
     });
 
-    // This part is inside your 'catch' block
+    
   } catch (err) {
-    // Log full error on server for easier debugging
+  
     console.error(err);
-    // If it's a Mongoose validation error, return 400 with details
+    
     if (err.name === "ValidationError") {
       const errors = Object.keys(err.errors).reduce((acc, key) => {
         acc[key] = err.errors[key].message;
@@ -73,14 +73,14 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Login Failed" });
     }
 
-    // We create the token now because the user is verified.
+    
     const token = jwt.sign(
-      { id: user._id, role: user.role }, // Payload: Data hidden in the token
+      { id: user._id, role: user.role }, 
       "tsm", //  Secret Key
-      { expiresIn: "1h" } // Expiry time
+      { expiresIn: "1h" } 
     );
 
-    // send the response with the token
+    
     return res.status(200).json({
       message: `welcome ${user.role}`,
       token: token, // Sending the key to the frontend

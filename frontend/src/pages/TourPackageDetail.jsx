@@ -163,7 +163,7 @@ const TourPackageDetail = () => {
               <h6>Quick Info</h6>
               <ul className="list-unstyled">
                 <li>
-                  <strong>Price:</strong> ₹{pkg.price}/person
+                  <strong>Price:</strong> ₹{pkg.price * travelers}/person
                 </li>
                 <li>
                   <strong>Type:</strong> {pkg.package_type}

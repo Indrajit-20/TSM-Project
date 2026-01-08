@@ -24,7 +24,7 @@ const Hompage = () => {
     getTours();
   }, []);
 
-  // The backend uses the field `package_type` (not `type`), so filter on that.
+  
   const DomesticPackages = packages.filter(
     (pkg) => pkg.package_type === "Domestic"
   );
@@ -50,7 +50,7 @@ const Hompage = () => {
               <div
                 className={`d-flex flex-column flex-md-row align-items-center bg-white p-3 rounded-pill shadow-lg ${styles.searchWidget}`}
               >
-                {/* 1. Where to? (Location) */}
+                {/* 1. Where to? (*/}
                 <div className="d-flex align-items-center px-3 border-end w-100 mb-2 mb-md-0">
                   <span className="me-2 text-primary ">
                     <FaLocationDot size={22} />{" "}
@@ -62,7 +62,7 @@ const Hompage = () => {
                   />
                 </div>
 
-                {/* 2. When? (Date) */}
+                {/* 2. (Date) */}
                 <div className="d-flex align-items-center px-3 w-100 mb-3 mb-md-0">
                   <span className="me-2 text-primary">
                     <IoCalendarOutline size={24} />
