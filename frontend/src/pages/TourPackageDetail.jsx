@@ -10,7 +10,6 @@ const TourPackageDetail = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
   const fetchPackage = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/packages/${id}`);
@@ -85,28 +84,12 @@ const TourPackageDetail = () => {
 
   if (!pkg) return <div>Loading...</div>;
 
-  const getImageUrl = (img) => {
-    if (!img) return "/default-tour.jpg";
-
-    if (img.startsWith("http")) {
-      return img;
-    }
-
-    return `http://localhost:5000/${img}`;
-  };
-
   return (
     <div className="container py-5">
       <div className="row">
         <div className="col-md-8">
           <img
-            src={(function (img) {
-              if (!img) return "/default-tour.jpg";
-              const t = img.toString().trim();
-              if (/^https?:\/\//i.test(t)) return t;
-              if (t.startsWith("/")) return `http://localhost:5000${t}`;
-              return `http://localhost:5000/${t}`;
-            })(pkg.image_url)}
+            src={getImageSrc(pkg.image_url)}
             className="img-fluid rounded mb-4"
             alt={pkg.name}
             style={{ height: "400px", objectFit: "cover" }}
@@ -162,7 +145,11 @@ const TourPackageDetail = () => {
                 />
               </div>
               <div className="col-md-4 mb-3 d-flex align-items-end">
-                <button className="btn btn-primary w-100" onClick={bookPackage}>
+                <button
+                  className="btn btn-primary w-100"
+                  onClick={bookPackage}
+                  disabled={!startDate}
+                >
                   Book Now (₹{pkg.price * travelers})
                 </button>
               </div>
@@ -185,12 +172,6 @@ const TourPackageDetail = () => {
                   <strong>Duration:</strong> {pkg.duration}
                 </li>
               </ul>
-              <button className="btn btn-success w-100 mb-2">
-                WhatsApp Inquiry
-              </button>
-              <button className="btn btn-outline-primary w-100">
-                Call Now
-              </button>
             </div>
           </div>
         </div>

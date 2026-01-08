@@ -50,5 +50,5 @@
 }
 
 :global(.card-actions .btn + .btn) {
-  margin-left: 90px;
+  margin-left: 95px;
 }

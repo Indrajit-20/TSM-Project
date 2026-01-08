@@ -59,14 +59,19 @@ const PackageCard = ({
           </li>
         </ul>
 
-        <div className="card-body d-flex justify-content-between">
+        <div className="card-body mt-auto p-3 card-actions">
           <Link
             to={`/packages/${id}`}
-            className="btn btn-outline-primary btn-sm"
+            className="btn btn-outline-primary btn-sm text-nowrap"
           >
             Details
           </Link>
-          <button className="btn btn-primary btn-sm">Book Now</button>
+          <Link
+            to={`/packages/${id}`}
+            className="btn btn-primary btn-sm text-nowrap"
+          >
+            Book Now
+          </Link>
         </div>
       </div>
     </>
