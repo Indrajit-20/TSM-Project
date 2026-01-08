@@ -24,7 +24,7 @@ const AdminDashboard = () => {
           }}
         >
           <h4 className="text-center fw-bold mb-5 border-bottom pb-3">
-            TSM ADMIN
+            ADMIN
           </h4>
 
           <ul className="nav flex-column gap-3">

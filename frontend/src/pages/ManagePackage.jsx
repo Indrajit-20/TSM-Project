@@ -149,7 +149,7 @@ const ManagePackage = () => {
     <>
       <div className="container-fluid p-4">
         <h2 className="fw-bold text-primary mb-4">
-          📦 Package Management
+           Package Management
         </h2>
 
         {/* ================= FORM ================= */}
