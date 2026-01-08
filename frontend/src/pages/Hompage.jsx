@@ -40,7 +40,7 @@ const Hompage = () => {
           <div className="row justify-content-center">
             <div className="col-md-10 col-lg-8 text-center text-white">
               <h1 className={`display-4 fw-bold mb-3 ${styles.heroTitle}`}>
-                Explore the World with TSM
+                Explore the World with Flyveda Tourism
               </h1>
               <p className={`lead mb-5  ${styles.heroTitle1}`}>
                 Find the best deals on domestic and international tours.
