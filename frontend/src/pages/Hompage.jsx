@@ -144,7 +144,7 @@ const Hompage = () => {
           <h3>No Tours Found</h3>
         </div>
       )}
-
+<h1>hello</h1>
       <Footer />
     </>
   );
